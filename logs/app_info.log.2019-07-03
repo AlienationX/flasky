@@ -1,0 +1,72 @@
+2019-07-03 17:49:58,810 INFO werkzeug[line:122]:  * Restarting with stat
+2019-07-03 17:50:07,614 WARNING werkzeug[line:122]:  * Debugger is active!
+2019-07-03 17:50:07,621 INFO werkzeug[line:122]:  * Debugger PIN: 248-435-283
+2019-07-03 17:50:08,633 INFO werkzeug[line:122]:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2019-07-03 17:51:13,632 INFO werkzeug[line:122]:  * Detected change in 'E:\\Codes\\Python\\flasky\\app\\__init__.py', reloading
+2019-07-03 17:51:13,726 INFO werkzeug[line:122]:  * Restarting with stat
+2019-07-03 17:51:15,013 WARNING werkzeug[line:122]:  * Debugger is active!
+2019-07-03 17:51:15,018 INFO werkzeug[line:122]:  * Debugger PIN: 248-435-283
+2019-07-03 17:51:15,863 INFO werkzeug[line:122]:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2019-07-03 17:51:44,479 INFO werkzeug[line:122]:  * Detected change in 'E:\\Codes\\Python\\flasky\\app\\__init__.py', reloading
+2019-07-03 17:51:44,574 INFO werkzeug[line:122]:  * Restarting with stat
+2019-07-03 17:51:45,961 WARNING werkzeug[line:122]:  * Debugger is active!
+2019-07-03 17:51:45,967 INFO werkzeug[line:122]:  * Debugger PIN: 248-435-283
+2019-07-03 17:51:46,823 INFO werkzeug[line:122]:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2019-07-03 17:51:54,577 INFO app[line:55]: before request do something...
+2019-07-03 17:51:55,543 INFO app[line:64]: after request do something...
+2019-07-03 17:51:55,544 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 17:51:55] "GET / HTTP/1.1" 200 -
+2019-07-03 17:52:09,221 INFO app[line:55]: before request do something...
+2019-07-03 17:52:09,223 INFO app[line:64]: after request do something...
+2019-07-03 17:52:09,226 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 17:52:09] "GET /maze/xiulanchen HTTP/1.1" 200 -
+2019-07-03 17:52:09,615 INFO app[line:55]: before request do something...
+2019-07-03 17:52:09,942 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 17:52:09] "GET /favicon.ico HTTP/1.1" 500 -
+2019-07-03 17:52:25,689 INFO app[line:55]: before request do something...
+2019-07-03 17:52:25,831 INFO app[line:64]: after request do something...
+2019-07-03 17:52:25,833 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 17:52:25] "GET /user/xiulanchen HTTP/1.1" 200 -
+2019-07-03 18:10:38,782 INFO werkzeug[line:122]:  * Detected change in 'E:\\Codes\\Python\\flasky\\app\\__init__.py', reloading
+2019-07-03 18:10:38,924 INFO werkzeug[line:122]:  * Restarting with stat
+2019-07-03 18:10:40,364 WARNING werkzeug[line:122]:  * Debugger is active!
+2019-07-03 18:10:40,371 INFO werkzeug[line:122]:  * Debugger PIN: 248-435-283
+2019-07-03 18:10:41,225 INFO werkzeug[line:122]:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2019-07-03 18:11:13,250 INFO app[line:55]: before request do something...
+2019-07-03 18:11:13,471 INFO app[line:65]: after request do something...
+2019-07-03 18:11:13,472 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 18:11:13] "GET /post/106 HTTP/1.1" 200 -
+2019-07-03 18:15:17,054 INFO werkzeug[line:122]:  * Detected change in 'E:\\Codes\\Python\\flasky\\app\\__init__.py', reloading
+2019-07-03 18:15:17,212 INFO werkzeug[line:122]:  * Restarting with stat
+2019-07-03 18:15:19,164 WARNING werkzeug[line:122]:  * Debugger is active!
+2019-07-03 18:15:19,171 INFO werkzeug[line:122]:  * Debugger PIN: 248-435-283
+2019-07-03 18:15:20,036 INFO werkzeug[line:122]:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2019-07-03 18:16:06,711 INFO werkzeug[line:122]:  * Detected change in 'E:\\Codes\\Python\\flasky\\app\\__init__.py', reloading
+2019-07-03 18:16:06,910 INFO werkzeug[line:122]:  * Restarting with stat
+2019-07-03 18:16:08,841 WARNING werkzeug[line:122]:  * Debugger is active!
+2019-07-03 18:16:08,848 INFO werkzeug[line:122]:  * Debugger PIN: 248-435-283
+2019-07-03 18:16:09,710 INFO werkzeug[line:122]:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2019-07-03 18:16:10,657 INFO app[line:57]: before request do something...
+2019-07-03 18:16:10,775 INFO app[line:66]: after request do something...
+2019-07-03 18:16:10,777 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 18:16:10] "GET /user/xiulanchen HTTP/1.1" 200 -
+2019-07-03 20:29:55,819 INFO werkzeug[line:122]:  * Detected change in 'E:\\Codes\\Python\\flasky\\app\\__init__.py', reloading
+2019-07-03 20:29:56,190 INFO werkzeug[line:122]:  * Restarting with stat
+2019-07-03 20:29:58,793 WARNING werkzeug[line:122]:  * Debugger is active!
+2019-07-03 20:29:58,799 INFO werkzeug[line:122]:  * Debugger PIN: 248-435-283
+2019-07-03 20:29:58,817 INFO werkzeug[line:122]:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2019-07-03 20:30:03,362 INFO app[line:57]: before request do something...
+2019-07-03 20:30:03,363 INFO app[line:60]: <app.models.User object at 0x00000190F1EBE898>
+2019-07-03 20:30:03,700 INFO app[line:67]: after request do something...
+2019-07-03 20:30:03,701 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 20:30:03] "GET / HTTP/1.1" 200 -
+2019-07-03 20:31:11,736 INFO werkzeug[line:122]:  * Detected change in 'E:\\Codes\\Python\\flasky\\app\\__init__.py', reloading
+2019-07-03 20:31:11,869 INFO werkzeug[line:122]:  * Restarting with stat
+2019-07-03 20:31:13,317 WARNING werkzeug[line:122]:  * Debugger is active!
+2019-07-03 20:31:13,324 INFO werkzeug[line:122]:  * Debugger PIN: 248-435-283
+2019-07-03 20:31:13,342 INFO werkzeug[line:122]:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2019-07-03 20:31:13,835 INFO app[line:57]: before request do something...
+2019-07-03 20:31:13,836 INFO app[line:66]: after request do something...
+2019-07-03 20:31:13,839 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 20:31:13] "GET /show_all HTTP/1.1" 302 -
+2019-07-03 20:31:13,857 INFO app[line:57]: before request do something...
+2019-07-03 20:31:14,207 INFO app[line:66]: after request do something...
+2019-07-03 20:31:14,207 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 20:31:14] "GET / HTTP/1.1" 200 -
+2019-07-03 20:31:14,465 INFO app[line:57]: before request do something...
+2019-07-03 20:31:14,477 INFO app[line:66]: after request do something...
+2019-07-03 20:31:14,478 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 20:31:14] "GET /static/styles.css HTTP/1.1" 200 -
+2019-07-03 20:31:17,217 INFO app[line:57]: before request do something...
+2019-07-03 20:31:17,262 INFO app[line:66]: after request do something...
+2019-07-03 20:31:17,263 INFO werkzeug[line:122]: 127.0.0.1 - - [03/Jul/2019 20:31:17] "GET /user/xiulanchen HTTP/1.1" 200 -

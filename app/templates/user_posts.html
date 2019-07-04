@@ -1,0 +1,7 @@
+{% extends "user_base.html" %}
+
+{% block page_content %}
+    {{ super() }}
+    {% include 'components/posts.html' %}
+    {% include 'components/pagination.html' %}
+{% endblock %}

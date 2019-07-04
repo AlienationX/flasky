@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}{{ config.APP_NAME }} - 迷宫里的秘密 {% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>Hello,
+            {% if current_user.is_authenticated %}
+                {{ current_user.username }}
+            {% else %}
+                Stranger
+            {% endif %}
+        </h1>
+        {% if current_user.last_login_time %}
+            <p>You last login at {{ current_user.last_login_time }}</p>
+        {% else %}
+            <p>Nice to meet you !</p>
+        {% endif %}
+    </div>
+    <div class="page-header">
+        {{ wtf.quick_form(form) }}
+    </div>
+
+    <div class="post-tabs">
+        <ul class="nav nav-tabs">
+            {#            <li{% if not show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_all') }}">All</a></li>#}
+            {#            {% if current_user.is_authenticated %}#}
+            {#                <li{% if show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_followed') }}">Followers</a></li>#}
+            {#            {% endif %}#}
+            <li{% if session.is_followings==0 %} class="active"{% endif %}><a href="{{ url_for('.show_all') }}">All</a></li>
+            {% if current_user.is_authenticated %}
+                <li{% if session.is_followings==1 %} class="active"{% endif %}><a href="{{ url_for('.show_followings') }}">Followers</a></li>
+            {% endif %}
+        </ul>
+        {% include 'components/posts.html' %}
+    </div>
+    <p><br/>The local date and time is {{ moment(current_time).format('LLL') }}.</p>
+    <p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
+{% endblock %}
