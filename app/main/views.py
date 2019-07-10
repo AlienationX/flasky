@@ -6,7 +6,7 @@ from flask import render_template, session, redirect, flash, abort, url_for, cur
 from flask_login import current_user, login_required
 from app.main import main
 from app.email import send_email
-from app.main.forms import PostForm, EditProfileForm, EditProfileAdminForm, CommentForm
+from app.main.forms import PostForm, EditProfileForm, EditProfileAdminForm, CommentForm, FAQForm
 from app import db
 from app.models import User
 from app.common.logger import create_logger
@@ -213,14 +213,31 @@ def post(id):
 @main.route("/maze/<username>")
 @login_required
 def maze(username):
-    return "{}'s maze".format(username)
+    return render_template("maze.html", username=username)
 
 
-@main.route("/faq")
+@main.route("/faq", methods=["GET", "POST"])
 @login_required
 def faq():
-    form = CommentForm()
+    form = FAQForm()
+    if form.validate_on_submit():
+        sql = "insert into feedback (title,body,author_id) values ('{}','{}',{})".format(form.title.data, form.body.data, current_user.id)
+        db.session.execute(sql)
+        db.session.commit()
+        flash("Report success, thank your feedback")
+        return redirect(url_for(".faq"))
     return render_template("FAQ.html", form=form)
+
+
+@main.route("/manage")
+@login_required
+def manage():
+    return render_template("manage/manage_base.html")
+
+
+@main.route("/client")
+def client():
+    return render_template("client.html")
 
 
 @main.route("/avatars")

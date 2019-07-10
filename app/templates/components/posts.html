@@ -8,7 +8,7 @@
                     <div class="post-author"><a href="{{ url_for('.user',username = post.username) }}">{{ post.username }}</a></div>
                     <div class="post-body"> {{ post.body }}</div>
                     <div>
-                        <a style="text-decoration: none;" href="{{ url_for('.post',id=post.id) }}"><span class="label label-success">comment</span></a>
+                        <a style="text-decoration: none;" href="{{ url_for('.post',id=post.id) }}"><span class="label label-primary">comment</span></a>
                         {#                    <a style="text-decoration: none;"><span class="label label-primary">star</span></a>#}
                         {#                    <button type="button" class="label label-primary" style="border-width:0px;" onclick="">#}
                         {#                        <span>star 13</span>#}

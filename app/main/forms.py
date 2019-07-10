@@ -4,6 +4,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Email, Length
+from flask_ckeditor import CKEditorField
 
 
 class NameForm(FlaskForm):
@@ -29,4 +30,10 @@ class PostForm(FlaskForm):
 
 class CommentForm(FlaskForm):
     body = StringField("", validators=[DataRequired(), Length(1, 128)])
+    submit = SubmitField("Submit")
+
+
+class FAQForm(FlaskForm):
+    title = StringField("主题", validators=[DataRequired()])
+    body = CKEditorField("内容", validators=[DataRequired()])
     submit = SubmitField("Submit")

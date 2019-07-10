@@ -7,7 +7,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_login import LoginManager, current_user
+from flask_socketio import SocketIO
 from flask_avatars import Avatars
+from flask_ckeditor import CKEditor
 from config import config
 from app.common.logger import create_logger
 import arrow
@@ -18,7 +20,9 @@ bootstrap = Bootstrap()
 db = SQLAlchemy()
 mail = Mail()
 moment = Moment()
+socketio = SocketIO()
 avatars = Avatars()
+ckeditor = CKEditor()
 
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
@@ -35,8 +39,10 @@ def create_app(config_name="default"):
     db.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
+    socketio.init_app(app)
     login_manager.init_app(app)
     avatars.init_app(app)
+    ckeditor.init_app(app)
 
     # 注册蓝本
     from .main import main as main_blueprint

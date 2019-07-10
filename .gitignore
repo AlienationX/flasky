@@ -8,6 +8,9 @@
 out
 gen
 
+# python
+__pycache__
+
 # Log
-log
+logs
 *.log

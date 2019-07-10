@@ -26,6 +26,9 @@ class Config:
     # 可以去掉一个警告，具体什么作用还不清楚
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+    # CKEditor
+    CKEDITOR_PKG_TYPE = "basic"  # basic\standard\full
+
     @staticmethod
     def init_app(app):
         pass
