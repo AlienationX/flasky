@@ -5,6 +5,7 @@ url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 verify_ssl = true
 
 [dev-packages]
+faker = "*"
 
 [packages]
 flask = "*"
@@ -18,16 +19,14 @@ flask-moment = "*"
 flask-wtf = "*"
 flask-mail = "*"
 flask-login = "*"
-faker = "*"
+flask-socketio = "*"
+flask-ckeditor = "*"
 flask-avatars = "*"
 psutil = "*"
 gunicorn = "*"
-flask-ckeditor = "*"
 # uwsgi = "*"
-# python-devel = "*"
-# python-dev = "*"
 tornado = "*"
-flask-socketio = "*"
+xlrd = "*"
 
 [requires]
 python_version = "3.6"

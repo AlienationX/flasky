@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}{{ config.APP_NAME }} - Manage{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                {#                <ul id="main-nav" class="nav nav-pills nav-stacked">#}
+                {#                    <li class="active">#}
+                {#                        <a href="#">#}
+                {#                            <i class="glyphicon glyphicon-th-large"></i>#}
+                {#                            首页#}
+                {#                        </a>#}
+                {#                    </li>#}
+                {#                    <li class="activeline">#}
+                {#                        <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">#}
+                {#                            <i class="glyphicon glyphicon-cog"></i>#}
+                {#                            系统管理#}
+                {#                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>#}
+                {#                        </a>#}
+                {#                        <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">#}
+                {#                            <li><a href="mytask"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>#}
+                {#                            <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>#}
+                {#                            <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>#}
+                {#                            <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>#}
+                {#                            <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>#}
+                {#                        </ul>#}
+                {#                    </li>#}
+                {#                    <li>#}
+                {#                        <a href="./plans.html">#}
+                {#                            <i class="glyphicon glyphicon-credit-card"></i>#}
+                {#                            物料管理#}
+                {#                        </a>#}
+                {#                    </li>#}
+                {#                    <li>#}
+                {#                        <a href="./grid.html">#}
+                {#                            <i class="glyphicon glyphicon-globe"></i>#}
+                {#                            分发配置#}
+                {#                            <span class="label label-warning pull-right">5</span>#}
+                {#                        </a>#}
+                {#                    </li>#}
+                {#                    <li>#}
+                {#                        <a href="./charts.html">#}
+                {#                            <i class="glyphicon glyphicon-calendar"></i>#}
+                {#                            图表统计#}
+                {#                        </a>#}
+                {#                    </li>#}
+                {#                    <li>#}
+                {#                        <a href="#">#}
+                {#                            <i class="glyphicon glyphicon-fire"></i>#}
+                {#                            关于系统#}
+                {#                        </a>#}
+                {#                    </li>#}
+                {#                </ul>#}
+                {#                ----------------------------#}
+                {#                <hr>#}
+                <div class="span6" role="tablist" aria-expanded="false">
+                    <ul class="nav nav-list">
+                        <li><a href="#"><i class="glyphicon glyphicon-th-large"></i>&nbsp;Home</a></li>
+                        <li>
+                            <a href="#one" class="nav-header collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-calendar"></i>&nbsp;List header
+                                <span class="pull-right glyphicon glyphicon-menu-down"></span>
+                            </a>
+                            <ul id="one" class="nav nav-list collapse">
+                                <li><a href="#"><i class="icon-white icon-home"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                                <li><a href="#"><i class="icon-book"></i>&nbsp;&nbsp;&nbsp;Library</a></li>
+                                <li><a href="#"><i class="icon-pencil"></i>&nbsp;&nbsp;&nbsp;Applications</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#two" class="nav-header collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-random"></i>&nbsp;Data Operation
+                                <span class="pull-right glyphicon glyphicon-menu-down"></span>
+                            </a>
+                            <ul id="two" class="nav nav-list collapse">
+                                <li><a href="{{ url_for('manage.upload') }}"><i class="icon-user"></i>&nbsp;&nbsp;&nbsp;Upload</a></li>
+                                <li><a href="{{ url_for('manage.download') }}"><i class="icon-cog"></i>&nbsp;&nbsp;&nbsp;Download</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#three" class="nav-header collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-cog"></i>&nbsp;Another list header
+                                <span class="pull-right glyphicon glyphicon-menu-down"></span>
+                            </a>
+                            <ul id="three" class="nav nav-list collapse">
+                                <li><a href="#"><i class="icon-user"></i>&nbsp;&nbsp;&nbsp;Profile</a></li>
+                                <li><a href="#"><i class="icon-cog"></i>&nbsp;&nbsp;&nbsp;Settings</a></li>
+                                <li><a href="#"><i class="icon-flag"></i>&nbsp;&nbsp;&nbsp;Help</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+
+            </div>
+            {#            dashboard           #}
+            <div class="col-md-10" style="box-shadow:-15px 0px 10px -15px #ccc;">
+                {% for message in get_flashed_messages() %}
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% block manage %}{% endblock %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

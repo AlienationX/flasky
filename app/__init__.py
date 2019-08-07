@@ -51,6 +51,9 @@ def create_app(config_name="default"):
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix="/auth")
 
+    from .manage import manage as manage_blueprint
+    app.register_blueprint(manage_blueprint, url_prefix="/manage")
+
     from .api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix="/api/v1")
 
@@ -72,7 +75,7 @@ def create_app(config_name="default"):
         logger.info("after request do something...")
         after_time = arrow.utcnow()
         print("The request spend {} seconds".format((after_time - before_time).seconds))  # 1秒=1000毫秒
-        print("The request spend {} milliseconds".format((after_time - before_time).microseconds / 1000))  # 1毫秒=1000微秒
+        print("The request spend {} milliseconds".format((after_time - before_time).microseconds))  # 1毫秒=1000微秒
         return response
 
     @app.teardown_request

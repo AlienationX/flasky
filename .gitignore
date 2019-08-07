@@ -8,9 +8,17 @@
 out
 gen
 
-# python
+# Virtual environment
+.venv
+
+# Packages
+*.egg
+*.egg-info
 __pycache__
 
 # Log
 logs
 *.log
+
+# Upload Foldor
+upload

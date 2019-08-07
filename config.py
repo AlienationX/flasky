@@ -10,7 +10,7 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY") or "hard to guess string"
     APP_NAME = "Secret"
     TIME_ZONE = "Asia/Shanghai"  # 主要是数据库所在位置的时区
-    UPLOAD_FOLDER = os.path.join(basedir, "app/upload")
+    UPLOAD_FOLDER = os.path.join(basedir, "app", "upload")
 
     MAIL_SERVER = "smtp.163.com"
     MAIL_PORT = 465

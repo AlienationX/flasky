@@ -1,0 +1,12 @@
+{% extends "manage/base.html" %}
+
+{% block manage %}
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <input type="file" name="excel" id="inputFile">
+            <p class="help-block" style="color: red">Only support xls or xlsx file to upload.</p>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

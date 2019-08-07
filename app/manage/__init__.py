@@ -3,6 +3,6 @@
 
 from flask import Blueprint
 
-auth = Blueprint("auth", __name__)
+manage = Blueprint("manage", __name__)
 
 from . import views

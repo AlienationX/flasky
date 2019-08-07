@@ -12,6 +12,7 @@ from app.models import User
 from app.common.logger import create_logger
 import arrow
 import hashlib
+import time
 
 logger = create_logger(__name__)
 
@@ -52,6 +53,7 @@ def index():
             tmp[k] = row[k]
         tmp["create_time_utc"] = arrow.get(row["create_time"], current_app.config["TIME_ZONE"]).to("utc")
         posts.append(tmp)
+    # time.sleep(5)
     return render_template("index.html",
                            current_time=arrow.utcnow().datetime,
                            form=form,
@@ -227,12 +229,6 @@ def faq():
         flash("Report success, thank your feedback")
         return redirect(url_for(".faq"))
     return render_template("FAQ.html", form=form)
-
-
-@main.route("/manage")
-@login_required
-def manage():
-    return render_template("manage/manage_base.html")
 
 
 @main.route("/client")
