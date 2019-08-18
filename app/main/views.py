@@ -19,11 +19,17 @@ logger = create_logger(__name__)
 
 @main.route("/", methods=["GET", "POST"])
 def index():
-    form = PostForm()
-    if form.validate_on_submit():
-        db.session.execute("insert into posts (body,author_id) values ('{}',{})".format(form.body.data, current_user.id))
+    # form = PostForm()
+    # if form.validate_on_submit():
+    #     db.session.execute("insert into posts (body,author_id) values ('{}',{})".format(form.body.data, current_user.id))
+    #     db.session.commit()
+    #     form.body.data = ""
+    #     return redirect(url_for(".index"))
+
+    if request.method == "POST":
+        data = request.form["mind"]
+        db.session.execute("insert into posts (body,author_id) values ('{}',{})".format(data, current_user.id))
         db.session.commit()
-        form.body.data = ""
         return redirect(url_for(".index"))
 
     limit = 20
@@ -56,7 +62,6 @@ def index():
     # time.sleep(5)
     return render_template("index.html",
                            current_time=arrow.utcnow().datetime,
-                           form=form,
                            posts=posts)
 
 
@@ -169,27 +174,42 @@ def unfollow(username):
 @main.route("/edit-profile", methods=["GET", "POST"])
 @login_required
 def edit_profile():
-    form = EditProfileForm()
-    if form.validate_on_submit():
-        db.session.execute("update users set real_name='{}', location='{}', about_me='{}' where username='{}'".format(form.real_name.data, form.location.data, form.about_me.data, current_user.username))
+    # form = EditProfileForm()
+    # if form.validate_on_submit():
+    #     db.session.execute("update users set real_name='{}', location='{}', about_me='{}' where username='{}'".format(form.real_name.data, form.location.data, form.about_me.data, current_user.username))
+    #     db.session.commit()
+    #     current_user.real_name = form.real_name.data
+    #     current_user.location = form.location.data
+    #     current_user.about_me = form.about_me.data
+    #     flash("Your profile has been updated.")
+    #     return redirect(url_for(".user", username=current_user.username))
+    if request.method == "POST":
+        real_name = request.form["real_name"]
+        location = request.form["location"]
+        about_me = request.form["about_me"]
+        db.session.execute("update users set real_name='{}', location='{}', about_me='{}' where username='{}'".format(real_name, location, about_me, current_user.username))
         db.session.commit()
-        current_user.real_name = form.real_name.data
-        current_user.location = form.location.data
-        current_user.about_me = form.about_me.data
+        current_user.real_name = real_name
+        current_user.location = location
+        current_user.about_me = about_me
         flash("Your profile has been updated.")
         return redirect(url_for(".user", username=current_user.username))
-    form.real_name.data = current_user.real_name
-    form.location.data = current_user.location
-    form.about_me.data = current_user.about_me
-    return render_template("edit_profile.html", form=form)
+    return render_template("edit_profile.html", user=current_user)
 
 
 @main.route("/post/<int:id>", methods=["GET", "POST"])
 @login_required
 def post(id):
-    form = CommentForm()
-    if form.validate_on_submit():
-        sql = "insert into comments (body,author_id,post_id) values ('{}',{},{})".format(form.body.data, current_user.id, id)
+    # form = CommentForm()
+    # if form.validate_on_submit():
+    #     sql = "insert into comments (body,author_id,post_id) values ('{}',{},{})".format(form.body.data, current_user.id, id)
+    #     db.session.execute(sql)
+    #     db.session.commit()
+    #     flash("Your comment has been published.")
+    #     return redirect(url_for(".post", id=id))
+    if request.method == "POST":
+        data = request.form["comment"]
+        sql = "insert into comments (body,author_id,post_id) values ('{}',{},{})".format(data, current_user.id, id)
         db.session.execute(sql)
         db.session.commit()
         flash("Your comment has been published.")
@@ -209,7 +229,7 @@ def post(id):
     order by c.create_time desc
     """.format(id)
     all_comments = db.engine.execute(comments_sql)
-    return render_template("post.html", form=form, posts=one_post, comments=all_comments)
+    return render_template("post.html", posts=one_post, comments=all_comments)
 
 
 @main.route("/maze/<username>")

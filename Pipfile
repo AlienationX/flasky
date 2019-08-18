@@ -10,7 +10,6 @@ faker = "*"
 [packages]
 flask = "*"
 pandas = "*"
-pymysql = "*"
 requests = "*"
 arrow = "*"
 flask-sqlalchemy = "*"
@@ -27,6 +26,7 @@ gunicorn = "*"
 # uwsgi = "*"
 tornado = "*"
 xlrd = "*"
+mysql-connector = "*"
 
 [requires]
 python_version = "3.6"

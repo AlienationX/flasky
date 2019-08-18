@@ -108,7 +108,7 @@ def unconfirmed():
 
 @auth.before_app_request
 def before_request():
-    print("权限请求")
+    print("auth/views.py before_app_request 权限请求")
     if current_user.is_authenticated:
         current_user.update_login_time()
         if session.get("is_followings", None) is None:

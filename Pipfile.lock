@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f9eca032d573c7d8fbb406750c2d5cc8d8e011500a27f9e5e3862672c7e455ef"
+            "sha256": "a26bd659af40dd861f90c2478a3b6c8748d04b4c8620ff15bbb5d2e29be38cc1"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,11 +18,11 @@
     "default": {
         "arrow": {
             "hashes": [
-                "sha256:157dee94b557ffe9a2e13e05669bf48820064cb37d416f547f59baa0d25301d4",
-                "sha256:47f37968afeaefd0ba3fe4d0c70dc830985f9ab11beeb381d4fc0e8f8151d3d6"
+                "sha256:0186026cfd94ca4fb773f30cc5398289a3027480d335e0e5c0d2772643763137",
+                "sha256:a12de0124d812d15061ed36c7eb4a421fa1b95026a502a0b2062e9ea00fc4446"
             ],
             "index": "pypi",
-            "version": "==0.14.4"
+            "version": "==0.14.5"
         },
         "blinker": {
             "hashes": [
@@ -197,6 +197,13 @@
             ],
             "version": "==1.1.1"
         },
+        "mysql-connector": {
+            "hashes": [
+                "sha256:1733e6ce52a049243de3264f1fbc22a852cb35458c4ad739ba88189285efdf32"
+            ],
+            "index": "pypi",
+            "version": "==2.2.9"
+        },
         "numpy": {
             "hashes": [
                 "sha256:03e311b0a4c9f5755da7d52161280c6a78406c7be5c5cc7facfbcebb641efb7e",
@@ -283,14 +290,6 @@
             ],
             "index": "pypi",
             "version": "==5.6.3"
-        },
-        "pymysql": {
-            "hashes": [
-                "sha256:3943fbbbc1e902f41daf7f9165519f140c4451c179380677e6a848587042561a",
-                "sha256:d8c059dcd81dedb85a9f034d5e22dcb4442c0b201908bede99e306d65ea7c8e7"
-            ],
-            "index": "pypi",
-            "version": "==0.9.3"
         },
         "python-dateutil": {
             "hashes": [

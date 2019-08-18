@@ -63,6 +63,7 @@ def create_app(config_name="default"):
         """before_request :在请求收到之前绑定一个函数做一些事情。"""
         global before_time
         before_time = arrow.utcnow()
+        print("-" * 100)
         logger.info("before request do something...")
         print(request.url)
         print(current_user)
@@ -76,6 +77,7 @@ def create_app(config_name="default"):
         after_time = arrow.utcnow()
         print("The request spend {} seconds".format((after_time - before_time).seconds))  # 1秒=1000毫秒
         print("The request spend {} milliseconds".format((after_time - before_time).microseconds))  # 1毫秒=1000微秒
+        print("-" * 100)
         return response
 
     @app.teardown_request

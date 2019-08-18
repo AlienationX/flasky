@@ -1,0 +1,63 @@
+{% extends "manage/base.html" %}
+
+{% block right_content %}
+    <form method="post">
+        <div class="col-md-3">
+            <select class="form-control" id="database" name="database">
+                {% for database in data.databases %}
+                    {% if database==data.select_database %}
+                        <option selected onchange="">{{ database }}</option>
+                    {% else %}
+                        <option onchange="">{{ database }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <select class="form-control" id="table" name="table" size="30">
+                {% for table in data.tables %}
+                    <option>{{ table }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group">
+                <textarea class="form-control" rows="10" wrap="soft" id="sql" name="sql" placeholder="eg: select * from table"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary pull-right">Query</button>
+            </div>
+
+            <div style="clear:both; padding-top: 10px">
+                {% for message in get_flashed_messages() %}
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {% if data.columns %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-responsive">
+                            <thead>
+                            <tr>
+                                {% for column in data.columns %}
+                                    <th>{{ column }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for row in data.data %}
+                                <tr>
+                                    {% for cell in row %}
+                                        <td>{{ cell }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </form>
+{% endblock %}

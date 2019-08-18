@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}{{ config.APP_NAME }} - {{ user.username }}{% endblock %}
-
+{% block title %} - {{ user.username }}{% endblock %}
 
 {% block page_content %}
-    <div class="page-header">
-        <img class="img-rounded profile-thumbnail" src="{{ avatars.gravatar(user.email_hash, size='256') }}">
-        <div class="profile-header">
+    <div class="row"  style="box-shadow:0px 0px 10px 5px #ccc;">
+        <div class="col-md-2">
+            <img class="img-rounded profile-thumbnail" src="{{ avatars.gravatar(user.email_hash) }}">
+        </div>
+        <div class="col-md-10">
             <h1>{{ user.username }}</h1>
             {% if user.real_name or user.location %}
                 <p>

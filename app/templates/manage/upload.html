@@ -1,12 +1,20 @@
 {% extends "manage/base.html" %}
 
-{% block manage %}
-    <form method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="exampleInputFile">File input</label>
-            <input type="file" name="excel" id="inputFile">
-            <p class="help-block" style="color: red">Only support xls or xlsx file to upload.</p>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+{% block right_content %}
+    <div class="col-md-12">
+        <form method="post" enctype="multipart/form-data">
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-{{ status }}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <div class="form-group">
+                <label for="inputFile">File input</label>
+                <input type="file" name="excel" id="inputFile" required>
+                <p class="help-block" style="color: red">Only support xls or xlsx file to upload.</p>
+            </div>
+            <button type="submit" class="btn-sm btn-primary">Upload</button>
+        </form>
+    </div>
 {% endblock %}
