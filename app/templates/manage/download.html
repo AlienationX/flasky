@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label for="select" class="input">Select table</label>
-                    <select class="form-control" id="select">
+                    <select class="form-control" id="tables">
                         {% for table in tables %}
                             <option>{{ table }}</option>
                         {% endfor %}
@@ -14,9 +14,15 @@
                 </div>
             </div>
             <div>
-                <button id="down" type="submit" class="btn-sm btn-primary">Download</button>
-                <button id="desc" class="btn-sm btn-success">Describe Table</button>
-                <button id="preview" class="btn-sm btn-danger">Preview Data</button>
+                <a id="down">
+                    <input type="button" class="btn btn-sm btn-primary" value="Download">
+                </a>
+                {#  <input type="button" class="btn btn-sm btn-success" id="desc" value="Describe Table">   #}
+                <button class="btn btn-sm btn-success" id="desc">Describe Table</button>
+                <button class="btn btn-sm btn-danger" id="preview">Preview Data</button>
+                <a href="https://www.baidu.com/">
+                    <input type="button" value="点我跳转到度娘！">
+                </a>
             </div>
         </form>
 
@@ -33,9 +39,9 @@
             document.writeln("I like " + fruits.length + " fruits");
         </code>
         <p>game over!</p>
-        <p name="code" class="html"><input id="fat-btn" class="btn btn-default" type="button" value='Download' οnclick="location.href='#'">
-        </p>
-        <a href="data:text/txt;charset=utf-8,测试下载纯文本" download="测试.txt">下载1</a>
+        <input id="fat-btn" class="btn btn-default" type="button" value='Download' οnclick="data:text/txt;charset=utf-8,测试下载纯文本">
+
+        <button class="btn"><a href="data:text/txt;charset=utf-8,测试下载纯文本" download="测试.txt">下载1</a></button>
 
         <details>
             <summary>Contents</summary>
@@ -50,10 +56,17 @@
 
 {% block script %}
     <script>
+        const select = document.getElementById("tables");
         const down = document.getElementById("down");
-        down.onclick = function () {
-            window.confirm("open");
-            window.prompt("test");
+        down.setAttribute("href", "/manage/download_flow/" + select.value);
+
+        select.onchange = function () {
+            down.setAttribute("href", "/manage/download_flow/" + select.value);
+        }
+
+        const desc = document.getElementById("desc");
+        desc.onclick = function () {
+            window.alert("desc table " + select.value);
         }
     </script>
 {% endblock %}

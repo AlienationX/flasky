@@ -3,7 +3,7 @@
 
 from flask import current_app
 from flask_login import UserMixin
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, SignatureExpired, BadSignature
 from app import login_manager, db
 from app.common.logger import create_logger
 import hashlib
@@ -14,6 +14,7 @@ logger = create_logger(__name__)
 
 class User(UserMixin):
     """必须继承UserMixin，current_user才会默认关联User对象"""
+    """修改为不依赖flask_login模块"""
 
     def __init__(self, user_id=0, username="", email=""):
         self.id = 0
@@ -27,26 +28,26 @@ class User(UserMixin):
             for row in user:
                 for k, v in row.items():
                     setattr(self, k, v)
-            self.last_login_time = arrow.get(self.last_login_time).format("dddd, MMMM D, YYYY HH:mm A")
             # self.email_hash = hashlib.md5(self.email.encode()).hexdigest()
+            self.update_login_time()
 
-    # @property
-    # def age(self):
-    #     if hasattr(self, "birthday"):
-    #         return arrow.now().year - arrow.get(self.birthday, "YYYY-MM-DD").year
-    #     return 999
-    #
-    # @property
-    # def gender_format(self):
-    #     if hasattr(self, "gender"):
-    #         if self.gender == "M":
-    #             gender_f = "男"
-    #         elif self.gender == "F":
-    #             gender_f = "女"
-    #         else:
-    #             gender_f = ""
-    #         return gender_f
-    #     return ""
+    @property
+    def age(self):
+        if hasattr(self, "birthday"):
+            return arrow.now().year - arrow.get(self.birthday, "YYYY-MM-DD").year
+        return 999
+
+    @property
+    def gender_map(self):
+        if hasattr(self, "gender"):
+            if self.gender == "M":
+                gender_f = "男"
+            elif self.gender == "F":
+                gender_f = "女"
+            else:
+                gender_f = ""
+            return gender_f
+        return ""
 
     # @property
     # def password(self):
@@ -64,25 +65,40 @@ class User(UserMixin):
         """加密密码验证"""
         return self.password_hash == self.generate_hash(password)
 
-    def generate_confirmation_token(self, expiration=1800):
-        """根据user_id生成token"""
+    def generate_token(self, expiration=600):
+        """根据user_id生成token，expiration为秒"""
         s = Serializer(current_app.config["SECRET_KEY"], expiration)
-        return s.dumps({"confirm": self.id})
+        return s.dumps({"id": self.id})
 
-    def confirm(self, token):
-        """更新confirmed确认字段"""
+    @staticmethod
+    def verify_token(self, token):
         s = Serializer(current_app.config["SECRET_KEY"])
         try:
             data = s.loads(token)
-        except:
+        except SignatureExpired:
+            # token正确但是过期了
+            return False
+        except BadSignature:
+            # token错误
             return False
 
-        if data.get("confirm") != self.id:
+        # user = db.engine.execute("select 1 from users t where t.id={} limit 1".format(data.get("id")))
+        # if user.rowcount == 0:
+        #     return False
+        # else:
+        #     return True
+
+        if data.get("id") != self.id:
             return False
-        db.session.execute("update users set confirmed=True where id={}".format(self.id))
-        db.session.commit()
-        self.confirmed = True
-        return True
+        else:
+            return True
+
+    def update_confirmed(self, token):
+        """更新confirmed确认字段"""
+        if self.verify_token(token):
+            db.session.execute("update users set confirmed=True where id={}".format(self.id))
+            db.session.commit()
+            self.confirmed = True
 
     def update_login_time(self):
         """更新已登录用户的最后访问时间"""
@@ -129,6 +145,12 @@ class User(UserMixin):
         sql = "select count(1) as num from posts where author_id={}".format(self.id)
         num = db.engine.execute(sql).fetchone()[0]
         return num
+
+    def __repr__(self):
+        if hasattr(self, "username"):
+            return "<User {} {}>".format(self.id, self.username)
+        else:
+            return "<User 0 anonymous>"
 
 
 # 该函数很重要，current_user通过该函数赋值

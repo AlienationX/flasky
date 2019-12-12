@@ -6,17 +6,21 @@
     {% include 'components/posts.html' %}
     <h4 id="comments">Comments</h4>
     {#    {% if current_user.can(Permission.COMMENT) %}#}
-{#    <div class="comment-form">#}
-        <form method="post">
-            <div class="form-group">
-                <input name="comment" type="text" class="form-control" maxlength="140" required>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-sm btn-danger">Submit</button>
-            </div>
-        </form>
-{#    </div>#}
+    {#    <div class="comment-form">#}
+    <form method="post">
+        <div class="form-group">
+            <input name="comment" type="text" class="form-control" maxlength="140" required autocomplete="off">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-sm btn-danger">Submit</button>
+        </div>
+    </form>
+    {#    </div>#}
     {#    {% endif %}#}
     {% include 'components/comments.html' %}
     {% include 'components/pagination.html' %}
+{% endblock %}
+
+{% block script %}
+
 {% endblock %}

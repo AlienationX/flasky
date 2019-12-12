@@ -10,6 +10,7 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY") or "hard to guess string"
     APP_NAME = "Secret"
     TIME_ZONE = "Asia/Shanghai"  # 主要是数据库所在位置的时区
+    APP_ROOT = basedir
     UPLOAD_FOLDER = os.path.join(basedir, "app", "upload")
 
     MAIL_SERVER = "smtp.163.com"
@@ -23,11 +24,16 @@ class Config:
 
     # 根据邮箱来判断admin账户
     APP_ADMIN = "lshuwork@163.com"
+
     # 可以去掉一个警告，具体什么作用还不清楚
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    # 启用慢查询监控
+    SQLALCHEMY_RECORD_QUERIES = True
+    # 设置大于多少秒的查询属于慢查询 slow database query threshold (in seconds)
+    DATABASE_QUERY_TIMEOUT = 0.5
 
-    # CKEditor
-    CKEDITOR_PKG_TYPE = "basic"  # basic\standard\full
+    DEFAULT_OFFSET = 0
+    DEFAULT_LIMIT = 10
 
     @staticmethod
     def init_app(app):

@@ -1,5 +1,17 @@
 {% extends "manage/base.html" %}
 
 {% block right_content %}
-    <h1>Welcome Manage Page</h1>
+    <h3>Welcome Manage Page</h3>
+    <p>星象仪 -- 大塚爱 (中日字幕 现场版)</p>
+    <p>
+        <video width="750" height="416" src="{{ url_for('static', filename='星象仪 -- 大塚爱 (中日字幕 现场版).flv') }}" preload="metadata" controls>
+            Video cannot displayed
+        </video>
+    </p>
+    <p>Creep(Live) - Radiohead</p>
+    <p>
+        <audio src="{{ url_for('static', filename='Creep(Live) - Radiohead.mp3') }}" controls>
+            Audio cannot played
+        </audio>
+    </p>
 {% endblock %}

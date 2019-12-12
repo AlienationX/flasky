@@ -1,3 +1,13 @@
-.body {
-    background-color: #fafafa
+body {
+    /*background-color: #fafafa*/
+    font-family: sans-serif;
+    background: #eee;
+    height: 100%;
+}
+/*footer置于窗口最底下*/
+.footer-fixed {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
 }

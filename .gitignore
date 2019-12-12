@@ -22,3 +22,5 @@ logs
 
 # Upload Foldor
 upload
+*.mp3
+*.flv

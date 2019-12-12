@@ -1,23 +1,19 @@
 {% extends "manage/base.html" %}
 
 {% block right_content %}
+    <div class="col-md-3">
+        <select class="form-control" id="database" name="database">
+            {% for database in data.databases %}
+                <option>{{ database }}</option>
+            {% endfor %}
+        </select>
+        <select class="form-control" id="table" name="table" size="30">
+            {#                {% for table in data.tables %}#}
+            {#                    <option>{{ table }}</option>#}
+            {#                {% endfor %}#}
+        </select>
+    </div>
     <form method="post">
-        <div class="col-md-3">
-            <select class="form-control" id="database" name="database">
-                {% for database in data.databases %}
-                    {% if database==data.select_database %}
-                        <option selected onchange="">{{ database }}</option>
-                    {% else %}
-                        <option onchange="">{{ database }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-            <select class="form-control" id="table" name="table" size="30">
-                {% for table in data.tables %}
-                    <option>{{ table }}</option>
-                {% endfor %}
-            </select>
-        </div>
         <div class="col-md-9">
             <div class="form-group">
                 <textarea class="form-control" rows="10" wrap="soft" id="sql" name="sql" placeholder="eg: select * from table"></textarea>
@@ -60,4 +56,28 @@
             </div>
         </div>
     </form>
+{% endblock %}
+{% block script %}
+    <script>
+        const data = {{ data|tojson }};
+        console.log(data);
+        setTableName(data.databases[0])
+
+        const select = document.getElementById("database");
+        select.onchange = function () {
+            const selectDatabase = select.value;
+            setTableName(selectDatabase)
+        }
+
+        function setTableName(database) {
+            const elemSelectTb = document.getElementById("table");
+            elemSelectTb.innerHTML = "";
+            console.log(database);
+            for (let i = 0; i < data.tables.length; i++) {
+                if (database == data.tables[i]["table_schema"]) {
+                    elemSelectTb.innerHTML += "<option>" + data.tables[i]["table_name"] + "</option>";
+                }
+            }
+        }
+    </script>
 {% endblock %}

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %} - Manage{% endblock %}
 
@@ -7,16 +6,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                <div role="tablist" aria-expanded="false">
-                    <ul class="nav nav-list">
-                        <li><a href="{{ url_for('manage.index') }}"><i class="glyphicon glyphicon-th-large"></i>&nbsp;Home</a></li>
+                <div id="menuDash">
+                    <ul class="nav nav-stacked">
+                        <li id="index"><a href="{{ url_for('manage.index') }}"><i class="glyphicon glyphicon-th-large"></i>&nbsp;Home</a></li>
                         <li>
                             <a href="#one" class="nav-header collapsed" data-toggle="collapse">
                                 <i class="glyphicon glyphicon-calendar"></i>&nbsp;Data Query
                                 <span class="pull-right glyphicon glyphicon-menu-down"></span>
                             </a>
                             <ul id="one" class="nav nav-list collapse">
-                                <li><a href="{{ url_for('manage.query') }}"><i class="icon-white icon-home"></i>&nbsp;&nbsp;&nbsp;Query</a></li>
+                                <li id="query"><a href="{{ url_for('manage.query') }}"><i class="icon-white icon-home"></i>&nbsp;&nbsp;&nbsp;Query</a></li>
                                 <li><a href="#"><i class="icon-book"></i>&nbsp;&nbsp;&nbsp;Library</a></li>
                                 <li><a href="#"><i class="icon-pencil"></i>&nbsp;&nbsp;&nbsp;Applications</a></li>
                             </ul>
@@ -27,8 +26,8 @@
                                 <span class="pull-right glyphicon glyphicon-menu-down"></span>
                             </a>
                             <ul id="two" class="nav nav-list collapse">
-                                <li><a href="{{ url_for('manage.upload') }}"><i class="icon-user"></i>&nbsp;&nbsp;&nbsp;Upload</a></li>
-                                <li><a href="{{ url_for('manage.download') }}"><i class="icon-cog"></i>&nbsp;&nbsp;&nbsp;Download</a></li>
+                                <li id="upload" class="active"><a href="{{ url_for('manage.upload') }}"><i class="icon-user"></i>&nbsp;&nbsp;&nbsp;Upload</a></li>
+                                <li id="download"><a href="{{ url_for('manage.download') }}"><i class="icon-cog"></i>&nbsp;&nbsp;&nbsp;Download</a></li>
                             </ul>
                         </li>
                         <li>
@@ -37,7 +36,7 @@
                                 <span class="pull-right glyphicon glyphicon-menu-down"></span>
                             </a>
                             <ul id="three" class="nav nav-list collapse">
-                                <li class="active"><a id="tt" href="#"><i class="icon-user"></i>&nbsp;&nbsp;&nbsp;Report</a></li>
+                                <li><a href="#"><i class="icon-user"></i>&nbsp;&nbsp;&nbsp;Report</a></li>
                                 <li><a href="#"><i class="icon-cog"></i>&nbsp;&nbsp;&nbsp;OLAP</a></li>
                                 <li><a href="#"><i class="icon-flag"></i>&nbsp;&nbsp;&nbsp;Dict</a></li>
                             </ul>
@@ -47,7 +46,7 @@
                 <hr>
             </div>
             {#            dashboard           #}
-            <div class="col-md-10" style="box-shadow:-15px 0px 10px -15px #ccc;">
+            <div id="right_content" class="col-md-10" style="box-shadow:-15px 0px 10px -15px #ccc;">
                 {% block right_content %}{% endblock %}
             </div>
         </div>
@@ -57,5 +56,20 @@
 {% block script %}
     <script>
         console.log("load manage/base.html")
+
+        const menuDash = document.querySelectorAll("#menuDash > ul > li > ul > li");
+        for (let i = 0; i < menuDash.length; i++) {
+            //lis[i].onclick(function (e) {
+            //    document.querySelector("#menu > ul >li > .active").classList.toggle("active");
+            //    e.target.parentNode.classList.add("active");
+            //})
+
+            // firstChild有时候会返回文本内容等，所以强烈推荐使用firstElementChild
+            console.log(menuDash[i])
+            if (menuDash[i].firstElementChild.getAttribute("href") === "{{ request.path }}") {
+                menuDash[i].classList.add("active");
+            }
+        }
+
     </script>
 {% endblock %}

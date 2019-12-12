@@ -2,7 +2,7 @@
 # python3
 
 
-from flask import render_template, session, redirect, flash, abort, url_for, current_app, make_response, request
+from flask import render_template, session, redirect, flash, abort, url_for, current_app, make_response, request, send_from_directory, g
 from flask_login import current_user, login_required
 from app.main import main
 from app.email import send_email
@@ -13,6 +13,7 @@ from app.common.logger import create_logger
 import arrow
 import hashlib
 import time
+import os
 
 logger = create_logger(__name__)
 
@@ -33,7 +34,7 @@ def index():
         return redirect(url_for(".index"))
 
     limit = 20
-    if current_user.is_authenticated and session["is_followings"] == 1:
+    if hasattr(g, "user") and session["is_followings"] == 1:
         sql = """
         select p.id,p.body,p.create_time,u.username,u.email_hash 
         from posts p 
@@ -60,9 +61,7 @@ def index():
         tmp["create_time_utc"] = arrow.get(row["create_time"], current_app.config["TIME_ZONE"]).to("utc")
         posts.append(tmp)
     # time.sleep(5)
-    return render_template("index.html",
-                           current_time=arrow.utcnow().datetime,
-                           posts=posts)
+    return render_template("index.html", posts=posts)
 
 
 @main.route("/show_all")
@@ -90,7 +89,7 @@ def user(username):
     one_user = User(username=username)
     if not one_user.password_hash:
         abort(404)
-    sql = "select p.id,p.body,p.create_time,u.username,u.email_hash from posts p join users u on p.author_id=u.id where u.id={} order by p.create_time desc".format(one_user.id)
+    sql = "select p.id,p.body,p.create_time,u.username,u.email_hash from posts p join users u on p.author_id=u.id where u.id={} order by p.create_time desc limit 10".format(one_user.id)
     posts = db.engine.execute(sql)
     return render_template("user_posts.html", user=one_user, posts=posts)
 
@@ -174,15 +173,6 @@ def unfollow(username):
 @main.route("/edit-profile", methods=["GET", "POST"])
 @login_required
 def edit_profile():
-    # form = EditProfileForm()
-    # if form.validate_on_submit():
-    #     db.session.execute("update users set real_name='{}', location='{}', about_me='{}' where username='{}'".format(form.real_name.data, form.location.data, form.about_me.data, current_user.username))
-    #     db.session.commit()
-    #     current_user.real_name = form.real_name.data
-    #     current_user.location = form.location.data
-    #     current_user.about_me = form.about_me.data
-    #     flash("Your profile has been updated.")
-    #     return redirect(url_for(".user", username=current_user.username))
     if request.method == "POST":
         real_name = request.form["real_name"]
         location = request.form["location"]
@@ -221,15 +211,32 @@ def post(id):
     where p.id={}
     """.format(id)
     one_post = db.engine.execute(post_sql)
+
+    page_size = 10
+    current_page = int(request.args.get("page", "1"))
+    offset = (current_page - 1) * page_size
     comments_sql = """
     select c.body,c.body_html,c.create_time,c.disabled,u.username,u.email_hash 
     from comments c 
     join users u on c.author_id=u.id 
     where c.post_id={} 
     order by c.create_time desc
-    """.format(id)
+    limit {},{}
+    """.format(id, offset, page_size)
     all_comments = db.engine.execute(comments_sql)
-    return render_template("post.html", posts=one_post, comments=all_comments)
+
+    total_sql = "select count(1) as num from comments c join users u on c.author_id=u.id where c.post_id={}".format(id)
+    row_count = 0
+    for row in db.engine.execute(total_sql):
+        row_count = int(row["num"])
+    page_count = int(row_count / page_size) + 1
+    pagination = {
+        "post_id": id,  # 分页按钮的url需要，先暂时这么处理
+        "currentPage": current_page,
+        "pageCount": page_count,
+        "row_count": row_count
+    }
+    return render_template("post.html", posts=one_post, comments=all_comments, pagination=pagination)
 
 
 @main.route("/maze/<username>")
@@ -254,6 +261,13 @@ def faq():
 @main.route("/client")
 def client():
     return render_template("client.html")
+
+
+@main.route("/other_files/<filename>")
+def other_files(filename):
+    templates = os.path.join(current_app.config["APP_ROOT"], "app", "templates", "manage")
+    print(templates)
+    return send_from_directory(templates, filename, as_attachment=True)
 
 
 @main.route("/avatars")

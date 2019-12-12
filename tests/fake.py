@@ -3,9 +3,10 @@
 
 from faker import Faker
 from random import randint
-from pymysql import connect
+from mysql.connector import connect
 import hashlib
 import arrow
+import random
 
 conn = connect(host="127.0.0.1", port=3306, user="root", password="root", db="flasky")
 cursor = conn.cursor()
@@ -18,6 +19,11 @@ def create_fake(language=None):
     else:
         fake = Faker()
     return fake
+
+
+def create_datetime(start_date="2019-01-01 00:00:00", end_date=arrow.now().format("YYYY-MM-DD HH:mm:ss")):
+    seconds = 60 * 60 * 24
+    days = 0
 
 
 def generate_users(count=100, language=None):
@@ -86,7 +92,8 @@ def generate_posts(count=100, language=None):
         )
         # print(posts_sql)
         cursor.execute(posts_sql)
-    conn.commit()
+        if i == count - 1 or i % 1000 == 0:
+            conn.commit()
 
 
 def generate_follows(count=500):
@@ -111,7 +118,7 @@ def generate_follows(count=500):
 
 if __name__ == "__main__":
     # generate_users(language="zh_CN")
-    # generate_posts(language="zh_CN")
-    generate_follows()
+    generate_posts(count=100000, language="zh_CN")
+    # generate_follows()
     cursor.close()
     conn.close()

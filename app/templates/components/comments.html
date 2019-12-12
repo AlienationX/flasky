@@ -1,4 +1,4 @@
-<div>
+<div id="first_row">
     <ul class="comments">
         {% for comment in comments %}
             <li class="comment">
@@ -8,7 +8,7 @@
                     </a>
                 </div>
                 <div class="comment-content">
-                    <div class="comment-date">{{ moment(comment.create_time).fromNow() }}</div>
+                    <div class="comment-date">{{ comment.create_time }}</div>
                     <div class="comment-author"><a href="{{ url_for('.user', username=comment.username) }}">{{ comment.username }}</a></div>
                     <div class="comment-body">
                         {% if comment.disabled %}

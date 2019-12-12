@@ -6,4 +6,14 @@ def func():
     print("Hello World")
 
 
-func()
+class A:
+    name = "A"
+
+    def __init__(self):
+        self.id = 0
+        self.username = "beijing"
+
+
+if __name__ == '__main__':
+    print(A.name)
+    print(A().username)

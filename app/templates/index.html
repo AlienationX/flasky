@@ -12,20 +12,22 @@
             {% endif %}
         </h1>
         {% if current_user.last_login_time %}
-            <p>You last login at {{ current_user.last_login_time }}</p>
+            <p>You last login at <strong>{{ current_user.last_login_time }}</strong></p>
         {% else %}
             <p>Nice to meet you !</p>
         {% endif %}
     </div>
-    <form method="post">
-        <div class="form-group">
-            <label for="mind">What's on your mind?</label>
-            <textarea class="form-control" rows="2" wrap="soft" id="mind" name="mind" required></textarea>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-danger">Submit</button>
-        </div>
-    </form>
+    {% if current_user.is_authenticated %}
+        <form method="post">
+            <div class="form-group">
+                <label for="mind">What's on your mind?</label>
+                <textarea class="form-control" rows="2" wrap="soft" id="mind" name="mind" required></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger">Submit</button>
+            </div>
+        </form>
+    {% endif %}
 
 
     <div class="post-tabs">
@@ -37,18 +39,26 @@
         </ul>
         {% include 'components/posts.html' %}
     </div>
-    <p><br/>The local date and time is {{ moment(current_time).format('LLL') }}.</p>
-    <p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
+
+    <div class="container">
+        <br/>
+        <p id="dt"></p>
+        {#    a hour ago 类似这样的实时刷新的时间显示    #}
+        <p id="dtHuman"></p>
+    </div>
 {% endblock %}
 
 {% block script %}
-{#    <script>#}
-{#        const nav = document.getElementById("nav");#}
-{#        for (let i = 0; i < nav.childElementCount; i++) {#}
-{#            console.log(i)#}
-{#            nav.childNodes[i].onclick = function (e) {#}
-{#                e.target.classList.toggle("active");#}
-{#            }#}
-{#        }#}
-{#    </script>#}
+    <script>
+        const now = moment();
+        document.getElementById("dt").innerHTML = "The local datetime is <strong>" + now.format("dddd, MMMM Do YYYY, h:mm:ss A") + "</strong>";
+
+        function refreshTime() {
+            document.getElementById("dtHuman").innerHTML = "Refresh at <strong>" + now.fromNow() + "</strong>";
+        }
+
+        refreshTime();
+        // setTimeout("refreshTime()", 60000);   // 超时执行函数
+        setInterval("refreshTime()", 60000);     // 每一分钟执行刷新函数
+    </script>
 {% endblock %}

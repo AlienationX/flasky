@@ -3,9 +3,10 @@
 {% block title %} - {{ user.username }}{% endblock %}
 
 {% block page_content %}
-    <div class="row"  style="box-shadow:0px 0px 10px 5px #ccc;">
+    <div class="row">
         <div class="col-md-2">
-            <img class="img-rounded profile-thumbnail" src="{{ avatars.gravatar(user.email_hash) }}">
+            <br/>
+            <img class="img-rounded profile-thumbnail" src="{{ avatars.gravatar(user.email_hash,size='156') }}">
         </div>
         <div class="col-md-10">
             <h1>{{ user.username }}</h1>
@@ -22,7 +23,7 @@
             {% endif %}
 
             {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-            <p>Member since {{ moment(user.create_time).format('L') }}</p>
+            <p>Member since {{ user.create_time }}</p>
             <p>Last seen <b>{{ user.last_login_time }}</b></p>
             <p>
                 {% if user.username != current_user.username %}

@@ -17,6 +17,8 @@
     <!-- Source js -->
     <script src="../static/app.js"></script>
     <script src="../static/lib/js/jquery-3.4.1.js"></script>
+    <script src="../static/lib/js/moment.min.js"></script>
+    <script src="../static/lib/js/js.cookie.js"></script>
     <script src="../static/lib/bootstrap-3.3.7/js/bootstrap.js"></script>
 
     <!-- Source CSS-->
@@ -29,8 +31,8 @@
     {% block css %}{% endblock %}
 </head>
 <body>
-{% block navbar %}
-    <div class="navbar navbar-inverse" role="navigation">
+<div>
+    <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -41,9 +43,9 @@
                 </button>
                 <a class="navbar-brand" href="/"><b>{{ config.APP_NAME }}</b></a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" id="menu">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ url_for('main.index') }}">Home</a></li>
                     {% if current_user.is_authenticated %}
                         <li><a href="{{ url_for('main.maze',username=current_user.username) }}">Maze</a></li>
                         <li><a href="{{ url_for('main.user',username=current_user.username) }}">Profile</a></li>
@@ -69,6 +71,7 @@
                                 <li><a href="{{ url_for('auth.change_email') }}">
                                     <small>Change Email</small>
                                 </a></li>
+                                <li role="separator" class="divider"></li>
                                 <li><a href="{{ url_for('auth.logout') }}">
                                     <small>Log Out</small>
                                 </a></li>
@@ -80,8 +83,17 @@
                 </ul>
             </div>
         </div>
-    </div>
-{% endblock %}
+    </nav>
+    <script>
+        const lis = document.querySelectorAll("#menu > ul > li");
+        for (let i = 0; i < lis.length; i++) {
+            // firstChild有时候会返回文本内容等，所以强烈推荐使用firstElementChild
+            if (lis[i].firstElementChild.getAttribute("href") === "{{ request.path }}") {
+                lis[i].classList.add("active");
+            }
+        }
+    </script>
+</div>
 
 {% block content %}
     <div class="container">
@@ -95,6 +107,42 @@
     </div>
 {% endblock %}
 
+<footer class="container-fluid" style="background-color: #333">
+    <br/>
+    <div class="container" style="color: white">
+        <div class="col-md-3 col-md-push-1 pull-left">
+            <h4>Hello from Secret.</h4>
+            <h6>© 2019 AlienationX</h6>
+        </div>
+        <div class="col-md-7 col-md-pull-1 pull-right" style="font-size: small">
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Flower Me</a></li>
+                <li><a href="#">Contact Me</a></li>
+                <li><a href="#">License</a></li>
+            </ul>
+        </div>
+    </div>
+    <br/>
+</footer>
+<script>
+    function footerFixed() {
+        const footer = document.querySelector("footer");
+        const contentHeight = document.body.scrollHeight;   // 网页正文全文高度
+        const winHeight = window.innerHeight;               // 可视窗口高度，不包括浏览器顶部工具栏
+        if (contentHeight < winHeight) {
+            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
+            console.log("yes");
+            console.log(footer)
+            footer.classList.add("footer-fixed");
+        } else {
+            console.log("no");
+        }
+    }
+    footerFixed();
+</script>
+
 {% block script %}{% endblock %}
+
 </body>
 </html>

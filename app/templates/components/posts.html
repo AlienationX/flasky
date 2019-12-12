@@ -4,7 +4,7 @@
             <li class="post">
                 <div class="post-thumbnail"><a href="{{ url_for('.user', username=post.username) }}"><img class="img-rounded profile-thumbnail" src="{{ avatars.gravatar(post.email_hash,size='40') }}"></a></div>
                 <div class="post-content">
-                    <div class="post-date">{{ moment(post.create_time).fromNow(refresh=True) }}</div>
+                    <div class="post-date">{{ post.create_time }}</div>
                     <div class="post-author"><a href="{{ url_for('.user',username = post.username) }}">{{ post.username }}</a></div>
                     <div class="post-body"> {{ post.body }}</div>
                     <div>

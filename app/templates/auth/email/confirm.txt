@@ -2,9 +2,9 @@ Dear {{ user.username }},
 
 Welcome to {{ config.APP_NAME }}!
 
-To confirm your account please click on the following link:
+To verify_token your account please click on the following link:
 
-{{ url_for('auth.confirm', token=token, _external=True) }}
+{{ url_for('auth.verify_token', token=token, _external=True) }}
 
 Sincerely,
 
