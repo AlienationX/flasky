@@ -24,7 +24,7 @@ def create_logger(name=None):
                 "format": "%(asctime)s %(levelname)s : %(message)s"
             },
             "standard": {
-                "format": "%(asctime)s %(levelname)s %(name)s[line:%(lineno)d]: %(message)s"
+                "format": "%(asctime)s %(levelname)s %(name)s %(filename)s[line:%(lineno)d]: %(message)s"
             },
         },
         "handlers": {
